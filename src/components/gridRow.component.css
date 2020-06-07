@@ -1,4 +1,9 @@
 .gridRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background-color: lightblue;
   color: black;
+  width: 384px;
+  height: 200px;
 }

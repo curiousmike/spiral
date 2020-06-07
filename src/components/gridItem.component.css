@@ -1,3 +1,9 @@
 .gridItem {
   padding: 24px;
+  background-color: lightpink;
+}
+.gridHighlight {
+  padding: 24px;
+  background-color: azure;
+  color: red;
 }
