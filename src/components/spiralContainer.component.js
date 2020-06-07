@@ -104,10 +104,18 @@ class SpiralContainer extends React.Component {
 
   render() {
     return (
-      <div className="spiralContainer">
-        <Grid data={data} highlightIndex={this.state.count}></Grid>
-        <button onClick={() => this.start()}>Start</button>
-        <button onClick={() => this.reset()}>Reset</button>
+      <div className="outerContainer">
+        <div className="spiralContainer">
+          <Grid data={data} highlightIndex={this.state.count}></Grid>
+        </div>
+        <div className="spiralButtonContainer">
+          <button onClick={() => this.start()} className="spiralButton">
+            Start
+          </button>
+          <button onClick={() => this.reset()} className="spiralButton">
+            Reset
+          </button>
+        </div>
       </div>
     );
   }
