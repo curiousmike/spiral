@@ -1,4 +1,4 @@
-## What is this ?\
+## What is this ?
 For a software engineering role, I was asked to solve a "spiral" question.\
 The question was this:\
 Given a set of data that looks like this:\
