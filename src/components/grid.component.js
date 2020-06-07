@@ -14,6 +14,7 @@ function generateRows(data, highlightIndex, visitedData) {
             <GridItem
               data={element}
               key={index}
+              uniqueIndex={i * j + (i + j)}
               highlight={index === highlightIndex}
               visited={visitedData[i][j]}
             />

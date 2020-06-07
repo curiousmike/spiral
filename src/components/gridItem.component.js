@@ -1,19 +1,31 @@
 import React from "react";
 import "./gridItem.component.css";
 
+const gridStyleBase = {
+  display: "flex",
+  justifyContent: "center",
+  padding: "16px",
+  backgroundColor: "#f2d7d5",
+  width: "5%",
+};
+
+const gridStyleHighlight = { ...gridStyleBase, backgroundColor: "#c0392b" };
+
 const GridItem = (props) => {
-  const { data, highlight, visited } = props;
-  console.log("visited = ", visited);
-  let className = "gridItem";
+  const { data, highlight, visited, uniqueIndex } = props;
+  let className = gridStyleBase;
   if (highlight) {
-    className = "gridItemHighlight";
+    className = gridStyleHighlight;
   }
   if (visited) {
-    className = "gridItemVisited";
+    const r = 200 + uniqueIndex * 3;
+    const g = 50 + uniqueIndex * 3;
+    const b = 48 + uniqueIndex * 3;
+    const rgb = "rgb(" + r + ", " + g + ", " + b + ")";
+    className = { ...gridStyleBase, backgroundColor: rgb };
   }
-  console.log("classname = ", className);
   return (
-    <span className={className} key={data}>
+    <span style={className} key={data}>
       {data}
     </span>
   );

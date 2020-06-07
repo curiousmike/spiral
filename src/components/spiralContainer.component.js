@@ -11,8 +11,7 @@ import Grid from "./grid.component";
 const data = [];
 
 const visited = [];
-const dataSize = 4;
-
+const dataSize = 5;
 let row = 0,
   col = 0,
   rowDir = 1,
@@ -91,15 +90,32 @@ class SpiralContainer extends React.Component {
     }
     let index = row * data.length + col;
     this.setState({ count: index });
+
+    this.checkDone();
   }
-  componentDidMount() {}
+
+  checkDone() {
+    let done = true;
+    for (let i = 0; i < visited.length; i++) {
+      for (let j = 0; j < visited[0].length; j++) {
+        if (!visited[i][j]) {
+          done = false;
+          break;
+        }
+      }
+    }
+    if (done) {
+      clearInterval(intervalTimer);
+      this.setState({ count: 0, animating: false });
+    }
+  }
 
   start() {
     this.reset();
     this.setState({ animating: true });
     intervalTimer = setInterval(() => {
       this.updateRowCol();
-    }, 250);
+    }, 100);
   }
 
   render() {
