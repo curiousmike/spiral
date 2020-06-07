@@ -2,9 +2,18 @@ import React from "react";
 import "./gridItem.component.css";
 
 const GridItem = (props) => {
-  const { data, highlight } = props;
+  const { data, highlight, visited } = props;
+  console.log("visited = ", visited);
+  let className = "gridItem";
+  if (highlight) {
+    className = "gridItemHighlight";
+  }
+  if (visited) {
+    className = "gridItemVisited";
+  }
+  console.log("classname = ", className);
   return (
-    <span className={!highlight ? "gridItem" : "gridHighlight"} key={data}>
+    <span className={className} key={data}>
       {data}
     </span>
   );

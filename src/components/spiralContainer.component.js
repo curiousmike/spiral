@@ -11,7 +11,7 @@ import Grid from "./grid.component";
 const data = [];
 
 const visited = [];
-const dataSize = 5;
+const dataSize = 4;
 
 let row = 0,
   col = 0,
@@ -41,7 +41,6 @@ class SpiralContainer extends React.Component {
   }
 
   reset() {
-    console.log("reset");
     clearInterval(intervalTimer);
     this.setState({ count: 0, animating: false });
     row = 0;
@@ -63,31 +62,31 @@ class SpiralContainer extends React.Component {
       if (col + colDir < data.length && col + colDir >= 0) {
         col += colDir;
         if (visited[row][col]) {
+          goRow = true;
           goCol = false;
           colDir *= -1;
           col += colDir;
-          goRow = true;
         }
       } else {
+        goRow = true;
         goCol = false;
         colDir *= -1;
-        goRow = true;
       }
     }
     if (goRow) {
       if (row + rowDir < data[0].length && row + rowDir >= 0) {
         row += rowDir;
         if (visited[row][col]) {
+          goCol = true;
           goRow = false;
           rowDir *= -1;
           row += rowDir;
-          goCol = true;
         }
       } else {
+        goCol = true;
+        col += colDir;
         goRow = false;
         rowDir *= -1;
-
-        goCol = true;
       }
     }
     let index = row * data.length + col;
@@ -96,6 +95,7 @@ class SpiralContainer extends React.Component {
   componentDidMount() {}
 
   start() {
+    this.reset();
     this.setState({ animating: true });
     intervalTimer = setInterval(() => {
       this.updateRowCol();
@@ -106,7 +106,11 @@ class SpiralContainer extends React.Component {
     return (
       <div className="outerContainer">
         <div className="spiralContainer">
-          <Grid data={data} highlightIndex={this.state.count}></Grid>
+          <Grid
+            data={data}
+            visited={visited}
+            highlightIndex={this.state.count}
+          ></Grid>
         </div>
         <div className="spiralButtonContainer">
           <button onClick={() => this.start()} className="spiralButton">

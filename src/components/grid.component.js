@@ -3,7 +3,7 @@ import GridRow from "./gridRow.component";
 import GridItem from "./gridItem.component";
 import "./grid.component.css";
 
-function generateRows(data, highlightIndex) {
+function generateRows(data, highlightIndex, visitedData) {
   return data.map((row, i) => {
     return (
       <GridRow
@@ -15,6 +15,7 @@ function generateRows(data, highlightIndex) {
               data={element}
               key={index}
               highlight={index === highlightIndex}
+              visited={visitedData[i][j]}
             />
           );
         })}
@@ -24,9 +25,9 @@ function generateRows(data, highlightIndex) {
 }
 
 const Grid = (props) => {
-  const { data, highlightIndex } = props;
+  const { data, highlightIndex, visited } = props;
 
-  const rows = generateRows(data, highlightIndex);
+  const rows = generateRows(data, highlightIndex, visited);
   return <div className="grid">{rows}</div>;
 };
 
