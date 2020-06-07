@@ -1,17 +1,25 @@
 import React from "react";
 import "./spiralContainer.component.css";
 import Grid from "./grid.component";
-const data3 = [
-  [1, 2, 3],
-  [8, 9, 4],
-  [7, 6, 5],
-];
-const dataSize = data3.length * data3[0].length;
+
+// const dataFromQuiz = [
+//   [1, 2, 3],
+//   [8, 9, 4],
+//   [7, 6, 5],
+// ];
+
+const data = [];
+
+const visited = [];
+const dataSize = 5;
+
 let row = 0,
   col = 0,
   rowDir = 1,
   colDir = 1;
 let intervalTimer = null;
+let goCol = true;
+let goRow = false;
 class SpiralContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -19,27 +27,71 @@ class SpiralContainer extends React.Component {
       count: 0,
       animating: false,
     };
+
+    let counter = 1;
+    for (let rows = 0; rows < dataSize; rows++) {
+      data[rows] = [];
+      visited[rows] = [];
+      for (let cols = 0; cols < dataSize; cols++) {
+        data[rows][cols] = counter;
+        counter++;
+        visited[rows][cols] = false;
+      }
+    }
   }
 
   reset() {
+    console.log("reset");
     clearInterval(intervalTimer);
     this.setState({ count: 0, animating: false });
+    row = 0;
+    col = 0;
+    rowDir = 1;
+    colDir = 1;
+    goCol = true;
+    goRow = false;
+    for (var r = 0; r < data.length; r++) {
+      for (var c = 0; c < data.length; c++) {
+        visited[r][c] = false;
+      }
+    }
   }
 
   updateRowCol() {
-    if (this.state.count + 1 < 9) {
-      this.setState({ count: this.state.count + 1 });
-    } else {
-      this.setState({ count: 0 });
+    visited[row][col] = true;
+    if (goCol) {
+      if (col + colDir < data.length && col + colDir >= 0) {
+        col += colDir;
+        if (visited[row][col]) {
+          goCol = false;
+          colDir *= -1;
+          col += colDir;
+          goRow = true;
+        }
+      } else {
+        goCol = false;
+        colDir *= -1;
+        goRow = true;
+      }
     }
-    if (row + 1 < data3.length) {
-      row++;
-    } else if (col + 1 < data3.length) {
-      col++;
-    } else {
-      console.log("end");
+    if (goRow) {
+      if (row + rowDir < data[0].length && row + rowDir >= 0) {
+        row += rowDir;
+        if (visited[row][col]) {
+          goRow = false;
+          rowDir *= -1;
+          row += rowDir;
+          goCol = true;
+        }
+      } else {
+        goRow = false;
+        rowDir *= -1;
+
+        goCol = true;
+      }
     }
-    console.log("new row/col = ", row, col);
+    let index = row * data.length + col;
+    this.setState({ count: index });
   }
   componentDidMount() {}
 
@@ -53,7 +105,7 @@ class SpiralContainer extends React.Component {
   render() {
     return (
       <div className="spiralContainer">
-        <Grid data={data3} highlightIndex={this.state.count}></Grid>
+        <Grid data={data} highlightIndex={this.state.count}></Grid>
         <button onClick={() => this.start()}>Start</button>
         <button onClick={() => this.reset()}>Reset</button>
       </div>
