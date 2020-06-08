@@ -18,14 +18,14 @@ const GridItem = (props) => {
     className = gridStyleHighlight;
   }
   if (visited) {
-    const r = 200 + uniqueIndex * 3;
-    const g = 50 + uniqueIndex * 3;
-    const b = 48 + uniqueIndex * 3;
+    const r = 200 + uniqueIndex * 2;
+    const g = 50 + uniqueIndex * 2;
+    const b = 48 + uniqueIndex * 2;
     const rgb = "rgb(" + r + ", " + g + ", " + b + ")";
     className = { ...gridStyleBase, backgroundColor: rgb };
   }
   return (
-    <span style={className} key={data}>
+    <span style={className} key={data} data={"data" + uniqueIndex}>
       {data}
     </span>
   );

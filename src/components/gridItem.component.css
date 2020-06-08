@@ -3,14 +3,12 @@
   justify-content: center;
   padding: 16px;
   background-color: #f2d7d5;
-  width: 5%;
 }
 .gridItemVisited {
   display: flex;
   justify-content: center;
   background-color: #cd6155;
   padding: 16px;
-  width: 5%;
 }
 .gridItemHighlight {
   display: flex;
@@ -18,5 +16,4 @@
   padding: 16px;
   background-color: #c0392b;
   color: white;
-  width: 5%;
 }

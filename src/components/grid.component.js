@@ -4,19 +4,19 @@ import GridItem from "./gridItem.component";
 import "./grid.component.css";
 
 function generateRows(data, highlightIndex, visitedData) {
-  return data.map((row, i) => {
+  return data.map((row, rowIndex) => {
     return (
       <GridRow
-        key={i}
-        data={row.map((element, j) => {
-          const index = i * row.length + j;
+        key={rowIndex}
+        data={row.map((element, colIndex) => {
+          const index = rowIndex * row.length + colIndex;
           return (
             <GridItem
               data={element}
               key={index}
-              uniqueIndex={i * j + (i + j)}
+              uniqueIndex={rowIndex * (data.length - 1) + (rowIndex + colIndex)}
               highlight={index === highlightIndex}
-              visited={visitedData[i][j]}
+              visited={visitedData[rowIndex][colIndex]}
             />
           );
         })}
